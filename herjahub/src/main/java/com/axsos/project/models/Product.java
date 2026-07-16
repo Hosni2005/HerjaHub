@@ -64,7 +64,6 @@ public class Product {
 			String image,
 			@NotNull(message = "Quantity is required") @Min(value = 0, message = "Quantity cannot be negative") Integer quantity,
 			Store store) {
-		super();
 		this.productName = productName;
 		this.description = description;
 		this.price = price;
