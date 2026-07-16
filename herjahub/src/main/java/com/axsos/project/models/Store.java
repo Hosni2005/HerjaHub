@@ -77,7 +77,6 @@ public class Store {
 			String description,
 			@Pattern(regexp = "^[0-9+\\-\\s]{7,20}$", message = "Invalid phone number") String phone,
 			@Size(max = 255) String address, String image) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
