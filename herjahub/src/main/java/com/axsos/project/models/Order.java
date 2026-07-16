@@ -35,5 +35,43 @@ public class Order {
 	   private Customer customer;
 	   @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	   private List<OrderItem> orderItems;
+	   
+	   public Order() {
+		   
+	   }
+	   public Order(Customer customer) {
+		this.customer = customer;
+	   }
+	   public Long getId() {
+		   return id;
+	   }
+	   public void setId(Long id) {
+		   this.id = id;
+	   }
+	   public Timestamp getCreatedAt() {
+		   return createdAt;
+	   }
+	   public void setCreatedAt(Timestamp createdAt) {
+		   this.createdAt = createdAt;
+	   }
+	   public Timestamp getUpdatedAt() {
+		   return updatedAt;
+	   }
+	   public void setUpdatedAt(Timestamp updatedAt) {
+		   this.updatedAt = updatedAt;
+	   }
+	   public Customer getCustomer() {
+		   return customer;
+	   }
+	   public void setCustomer(Customer customer) {
+		   this.customer = customer;
+	   }
+	   public List<OrderItem> getOrderItems() {
+		   return orderItems;
+	   }
+	   public void setOrderItems(List<OrderItem> orderItems) {
+		   this.orderItems = orderItems;
+	   }
+	   
 
 }
