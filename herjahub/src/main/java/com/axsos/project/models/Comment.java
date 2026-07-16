@@ -44,4 +44,61 @@ public class Comment {
 	   @ManyToOne(fetch = FetchType.LAZY)
 	   @JoinColumn(name = "product_id")
 	   private Product product;
+	   public Comment() {
+		   
+	   }
+	   public Comment(
+			@NotNull(message = "Rating is required") @Min(value = 1, message = "Minimum rating is 1") @Max(value = 5, message = "Maximum rating is 5") Integer rating,
+			@Size(max = 1000, message = "Comment cannot exceed 1000 characters") String comment, Customer customer,
+			Product product) {
+		this.rating = rating;
+		this.comment = comment;
+		this.customer = customer;
+		this.product = product;
+	   }
+	   public Long getId() {
+		   return id;
+	   }
+	   public void setId(Long id) {
+		   this.id = id;
+	   }
+	   public Integer getRating() {
+		   return rating;
+	   }
+	   public void setRating(Integer rating) {
+		   this.rating = rating;
+	   }
+	   public String getComment() {
+		   return comment;
+	   }
+	   public void setComment(String comment) {
+		   this.comment = comment;
+	   }
+	   public Timestamp getCreatedAt() {
+		   return createdAt;
+	   }
+	   public void setCreatedAt(Timestamp createdAt) {
+		   this.createdAt = createdAt;
+	   }
+	   public Timestamp getUpdatedAt() {
+		   return updatedAt;
+	   }
+	   public void setUpdatedAt(Timestamp updatedAt) {
+		   this.updatedAt = updatedAt;
+	   }
+	   public Customer getCustomer() {
+		   return customer;
+	   }
+	   public void setCustomer(Customer customer) {
+		   this.customer = customer;
+	   }
+	   public Product getProduct() {
+		   return product;
+	   }
+	   public void setProduct(Product product) {
+		   this.product = product;
+	   }
+	   
+	   
+	   
 }
