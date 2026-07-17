@@ -1,0 +1,25 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Something went wrong — HerjaHub</title>
+<style>
+  body{ font-family:'Inter',sans-serif; background:#F8F9FA; color:#1F2937; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
+  .card{ background:#fff; border-radius:20px; padding:40px; max-width:520px; text-align:center; box-shadow:0 20px 40px -30px rgba(17,17,17,0.25); }
+  h1{ margin-top:0; }
+  a{ color:#198754; font-weight:600; text-decoration:none; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <h1>Something went wrong</h1>
+    <p>An unexpected error occurred while processing your request.</p>
+    <c:if test="${not empty errorMessage}">
+      <p style="color:#6b7280; font-size:13px;">${errorMessage}</p>
+    </c:if>
+    <a href="${pageContext.request.contextPath}/">Return to homepage</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+package com.axsos.project.controllers;
+
+public class StoreController {
+
+}

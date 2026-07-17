@@ -1,0 +1,55 @@
+package com.axsos.project.services;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.axsos.project.models.Customer;
+import com.axsos.project.repositores.CustomerRepository;
+
+@Service
+public class CustomerService {
+	private final CustomerRepository customerRepository;
+    private final PasswordUtil passwordUtil;
+
+    @Autowired
+    public CustomerService(CustomerRepository customerRepository, PasswordUtil passwordUtil) {
+        this.customerRepository = customerRepository;
+        this.passwordUtil = passwordUtil;
+    }
+
+    public boolean emailExists(String email) {
+        return customerRepository.existsByEmail(email);
+    }
+
+    public Customer registerCustomer(RegistrationForm form) {
+        Customer customer = new Customer(
+                form.getFirstName(),
+                form.getLastName(),
+                form.getEmail(),
+                passwordUtil.hash(form.getPassword())
+        );
+        return customerRepository.save(customer);
+    }
+
+    /**
+     * Authenticates a customer by email/password.
+     * Returns an empty Optional if the email doesn't exist or the password doesn't match.
+     */
+    public Optional<Customer> authenticate(String email, String rawPassword) {
+        Optional<Customer> customerOpt = customerRepository.findByEmail(email);
+        if (customerOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Customer customer = customerOpt.get();
+        if (passwordUtil.matches(rawPassword, customer.getPassword())) {
+            return Optional.of(customer);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Customer> findById(Long id) {
+        return customerRepository.findById(id);
+    }
+}

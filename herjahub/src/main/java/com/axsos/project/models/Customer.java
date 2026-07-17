@@ -1,6 +1,6 @@
 package com.axsos.project.models;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -41,10 +41,10 @@ public class Customer {
 	   private String password;
 	   @CreationTimestamp
 	   @Column(name = "created_at", updatable = false)
-	   private Timestamp createdAt;
+	   private LocalDateTime createdAt;
 	   @UpdateTimestamp
 	   @Column(name = "updated_at")
-	   private Timestamp updatedAt;
+	   private LocalDateTime updatedAt;
 	   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	   private List<Order> orders;
 	   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
@@ -92,16 +92,16 @@ public class Customer {
 	   public void setPassword(String password) {
 		   this.password = password;
 	   }
-	   public Timestamp getCreatedAt() {
+	   public LocalDateTime getCreatedAt() {
 		   return createdAt;
 	   }
-	   public void setCreatedAt(Timestamp createdAt) {
+	   public void setCreatedAt(LocalDateTime createdAt) {
 		   this.createdAt = createdAt;
 	   }
-	   public Timestamp getUpdatedAt() {
+	   public LocalDateTime getUpdatedAt() {
 		   return updatedAt;
 	   }
-	   public void setUpdatedAt(Timestamp updatedAt) {
+	   public void setUpdatedAt(LocalDateTime updatedAt) {
 		   this.updatedAt = updatedAt;
 	   }
 	   public List<Order> getOrders() {

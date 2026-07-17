@@ -1,0 +1,62 @@
+package com.axsos.project.services;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.axsos.project.models.Store;
+import com.axsos.project.repositores.StoreRepository;
+
+public class StoreService {
+	private final StoreRepository storeRepository;
+    private final PasswordUtil passwordUtil;
+
+    @Autowired
+    public StoreService(StoreRepository storeRepository, PasswordUtil passwordUtil) {
+        this.storeRepository = storeRepository;
+        this.passwordUtil = passwordUtil;
+    }
+
+    public boolean emailExists(String email) {
+        return storeRepository.existsByEmail(email);
+    }
+
+    public Store registerStore(RegistrationForm form) {
+        // The Store entity's @Pattern validation on phone rejects blank strings (it only
+        // treats null as "no value"), so normalize an empty phone to null before persisting.
+        String phone = (form.getPhone() == null || form.getPhone().isBlank()) ? null : form.getPhone();
+
+        Store store = new Store(
+                form.getFirstName(),
+                form.getLastName(),
+                form.getEmail(),
+                passwordUtil.hash(form.getPassword()),
+                form.getStoreName(),
+                form.getDescription(),
+                phone,
+                form.getAddress(),
+                null // image - not collected at registration time
+        );
+        return storeRepository.save(store);
+    }
+
+    /**
+     * Authenticates a store owner by email/password.
+     * Returns an empty Optional if the email doesn't exist or the password doesn't match.
+     */
+    public Optional<Store> authenticate(String email, String rawPassword) {
+        Optional<Store> storeOpt = storeRepository.findByEmail(email);
+        if (storeOpt.isEmpty()) {
+            return Optional.empty();
+        }
+        Store store = storeOpt.get();
+        if (passwordUtil.matches(rawPassword, store.getPassword())) {
+            return Optional.of(store);
+        }
+        return Optional.empty();
+    }
+
+    public Optional<Store> findById(Long id) {
+        return storeRepository.findById(id);
+    }
+}
