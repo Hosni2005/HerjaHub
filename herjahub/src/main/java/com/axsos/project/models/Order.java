@@ -1,6 +1,7 @@
 package com.axsos.project.models;
 
-import java.security.Timestamp;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -26,10 +27,10 @@ public class Order {
 	   private Long id;
 	   @CreationTimestamp
 	   @Column(name = "created_at", updatable = false)
-	   private Timestamp createdAt;
+	   private LocalDateTime createdAt;
 	   @UpdateTimestamp
 	   @Column(name = "updated_at")
-	   private Timestamp updatedAt;
+	   private LocalDateTime updatedAt;
 	   @ManyToOne(fetch = FetchType.LAZY)
 	   @JoinColumn(name = "customer_id")
 	   private Customer customer;
@@ -48,16 +49,16 @@ public class Order {
 	   public void setId(Long id) {
 		   this.id = id;
 	   }
-	   public Timestamp getCreatedAt() {
+	   public LocalDateTime getCreatedAt() {
 		   return createdAt;
 	   }
-	   public void setCreatedAt(Timestamp createdAt) {
+	   public void setCreatedAt(LocalDateTime createdAt) {
 		   this.createdAt = createdAt;
 	   }
-	   public Timestamp getUpdatedAt() {
+	   public LocalDateTime getUpdatedAt() {
 		   return updatedAt;
 	   }
-	   public void setUpdatedAt(Timestamp updatedAt) {
+	   public void setUpdatedAt(LocalDateTime updatedAt) {
 		   this.updatedAt = updatedAt;
 	   }
 	   public Customer getCustomer() {

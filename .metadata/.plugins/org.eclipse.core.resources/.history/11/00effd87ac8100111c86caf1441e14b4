@@ -1,0 +1,25 @@
+package com.axsos.project.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.axsos.project.models.Store;
+
+import jakarta.servlet.http.HttpSession;
+
+
+@Controller
+@RequestMapping("store")
+public class StoreController {
+	@GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model) {
+        Store store = (Store) session.getAttribute("loggedInStore");
+        if (store == null) {
+            return "redirect:/auth";
+        }
+        model.addAttribute("store", store);
+        return "store/dashboard";
+    }
+}

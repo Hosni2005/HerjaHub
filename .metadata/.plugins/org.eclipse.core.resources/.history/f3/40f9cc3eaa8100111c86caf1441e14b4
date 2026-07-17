@@ -1,0 +1,20 @@
+package com.axsos.project.controllers;
+
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import com.axsos.project.models.Customer;
+
+import jakarta.servlet.http.HttpSession;
+
+public class CustomerController {
+	@GetMapping("/dashboard")
+    public String dashboard(HttpSession session, Model model) {
+        Customer customer = (Customer) session.getAttribute("loggedInCustomer");
+        if (customer == null) {
+            return "redirect:/auth";
+        }
+        model.addAttribute("customer", customer);
+        return "customer/dashboard";
+    }
+}
